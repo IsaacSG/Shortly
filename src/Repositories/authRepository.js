@@ -1,7 +1,7 @@
 import connection from "../DB/pg.js";
 
 export async function emailVerify(email) {
-    connection.query(`
+    return connection.query(`
     SELECT * 
     FROM users 
     WHERE email = $1`
@@ -16,7 +16,7 @@ export async function signUp(name, email, password) {
 }
 
 export async function userUrls(id) {
-    connection.query(`
+    return connection.query(`
     SELECT u.id, u.name, COALESCE(SUM(s."visitCount")::INTEGER, 0) AS "visitCount", 
             COALESCE(
                 JSON_AGG(
